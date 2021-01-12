@@ -1,10 +1,10 @@
 from collections import Counter
 
 # stripped_python2.6.txt
-file = open('stripped_python2.6.txt', 'r')
-file_1=open('stripped_python3.txt', 'r')
-stripped_text = file.read()
-stripped_text_1 = file_1.read()
+file_1= open('stripped_python2.6.txt', 'r')
+file_2=open('stripped_python3.txt', 'r')
+stripped_text = file_1.read()
+stripped_text_1 = file_2.read()
 
 def pretty(d, indent=0):
     for key, value in d.items():
