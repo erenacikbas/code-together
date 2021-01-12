@@ -27,3 +27,4 @@ def word_counter(stripped_text):
 
 word_counter(stripped_text)
 word_counter(stripped_text_1)
+
