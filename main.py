@@ -82,19 +82,6 @@ def word_counting(bookName, stripped_book):
             else:
                 print('\t' * (indent+1) + str(value))
 
-    # def word_counter(stripped_text):
-    #     text = ""
-    #     wordsList = []
-    #     for words in stripped_book_text.split(" "):
-    #         wordsList.append(words)
-    #     counted_dictionary = Counter(wordsList).most_common(20)
-    #     for i in counted_dictionary:
-    #         text += str(i) + "\n"
-    #     print(text)
-    #     return text
-
-    # print(word_counter(stripped_book_text))
-
     def word_count(str):
         words = str.split()
         counts = dict()
@@ -141,6 +128,5 @@ def test():
         book = web_scraping(link)
         stripped_book = stripping(book)
         word_counting(book, stripped_book)
-
 
 test()
