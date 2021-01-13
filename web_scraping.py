@@ -41,4 +41,3 @@ file.close()
 file2.write(soupforLink2.find(id="mw-content-text").get_text())
 file2.close()
 
-print("hello world")

@@ -128,7 +128,7 @@ def word_counting(bookName, stripped_book):
     result = open(bookName + "_result.txt", "a")
     #result_text = word_counter(stripped_book_text)
     result_text = word_count(stripped_book_text)
-    # result.write(result_text)
+    #result.write(result_text)
     result.close()
 
 # 4. Test
