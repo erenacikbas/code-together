@@ -1,0 +1,2 @@
+https://en.wikibooks.org/wiki/Non-Programmer%27s_Tutorial_for_Python_2.6/Print_version
+https://en.wikibooks.org/wiki/Non-Programmer%27s_Tutorial_for_Python_3/Print_version

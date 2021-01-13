@@ -31,7 +31,6 @@ def web_scraping(link):
         book = key
         bookLink = value
 
-    # python 2.6
     file1 = open(book, "a")
     file1.truncate(0)
 
@@ -40,7 +39,6 @@ def web_scraping(link):
     link = urllib.request.urlopen(
         bookLink, context=context)
 
-    # Link 1 Soup
     soupForLink = BeautifulSoup(link, 'html.parser')
 
     Lines = [
@@ -58,6 +56,7 @@ def stripping(bookName):
     book = open(bookName, "r+")
     stripped_book_name = "Stripped_" + bookName
     stripped_book = open(stripped_book_name, "a")
+    stripped_book.truncate(0)
     text = book.read()
     stripped_text = " ".join(text.split())
     stripped_book.write(stripped_text.casefold())
@@ -72,6 +71,7 @@ def stripping(bookName):
 # 3. Word Counting
 
 def word_counting(bookName, stripped_book):
+    sorted_dict = {}
     stripped_book_text = open(stripped_book, "r+").read()
 
     def pretty(d, indent=0):
@@ -92,14 +92,10 @@ def word_counting(bookName, stripped_book):
             else:
                 counts[word] = 1
         # Sorting values
-        sorted_dict = {}
+
         sorted_keys = sorted(counts, key=counts.get, reverse=True)
         for w in sorted_keys:
             sorted_dict[w] = counts[w]
-
-        # for x, y in sorted_dict.items():
-        #     sorted_text += str(x) + ":" + str(y) + "\n"
-        # return sorted_text
 
         # Removing Unwanted Items
         for uw_word in unwanted_words:
@@ -108,25 +104,55 @@ def word_counting(bookName, stripped_book):
         sorted_dic_items = sorted_dict.items()
         first_20_words = list(sorted_dic_items)[:20]
         print(first_20_words)
+        print("\n\n")
 
         # for word, occurence in sorted_dict.items():
         #     print(str(word) + ": " + str(occurence) + "\n")
 
     result = open(bookName + "_result.txt", "a")
+    result.truncate(0)
     #result_text = word_counter(stripped_book_text)
     result_text = word_count(stripped_book_text)
     # result.write(result_text)
     result.close()
+    return sorted_dict
 
-# 4. Test
+# 5. Finding Intersection Points
+
+
+def common_elements(sorted_dictionaries):
+    dict_1 = sorted_dictionaries[0]
+    dict_2 = sorted_dictionaries[1]
+
+    intersects = []
+    # intersects
+    for item in dict_1.keys():
+        if item in dict_2.keys():
+            intersects.append(item)
+    # print("Intersects: ", intersects)
+    # commons
+    for dictionary in sorted_dictionaries:
+        for intersect in intersects:
+            if(intersect in dictionary):
+                del dictionary[intersect]
+    print("---------------------------------")
+    print("Common Words")
+    print("dict_1 : " + str(list(dict_1.items())[:20]) + "\n\n")
+    print("dict_2 : " + str(list(dict_2.items())[:20]))
+
+# 6. Test
 
 
 def test():
     #links = input_grabber()
     links = input_grabber()
+    sorted_dictionaries = []
     for link in links:
         book = web_scraping(link)
         stripped_book = stripping(book)
-        word_counting(book, stripped_book)
+        sorted_dict = word_counting(book, stripped_book)
+        sorted_dictionaries.append(sorted_dict)
+    common_elements(sorted_dictionaries)
+
 
 test()
