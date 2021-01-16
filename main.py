@@ -1,5 +1,6 @@
 # importing beautifulsoup
 from bs4 import BeautifulSoup
+import string
 import ssl
 import urllib.request
 # Counter for word counting
@@ -59,6 +60,7 @@ def stripping(bookName):
     stripped_book.truncate(0)
     text = book.read()
     stripped_text = " ".join(text.split())
+    stripped_text = stripped_text.translate(str.maketrans('', '', string.punctuation))
     stripped_book.write(stripped_text.casefold())
     stripped_book.close()
     book.close()
