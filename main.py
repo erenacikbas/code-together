@@ -9,15 +9,18 @@ from collections import Counter
 
 # Unwanted Word Lists
 unwanted_words = [">>>", "i", "me", "my", "myself", "we", "our", "ours", "ourselves", "you", "your", "yours", "yourself", "yourselves", "he", "him", "his", "himself", "she", "her", "hers", "herself", "it", "its", "itself", "they", "them", "their", "theirs", "themselves", "what", "which", "who", "whom", "this", "that", "these", "those", "am", "is", "are", "was", "were", "be", "been", "being", "have", "has", "had", "having", "do", "does", "did", "doing", "a", "an", "the", "and", "but", "if", "or", "because", "as", "until", "while", "of", "at", "by", "for", "with", "about", "against",
-                  "between", "into", "through", "during", "before", "after", "above", "below", "to", "from", "up", "down", "in", "out", "on", "off", "over", "under", "again", "further", "then", "once", "here", "there", "when", "where", "why", "how", "all", "any", "both", "each", "few", "more", "most", "other", "some", "such", "no", "nor", "not", "only", "own", "same", "so", "than", "too", "very", "s", "t", "can", "will", "just", "don", "should", "now", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "==", "+", "=", "-"]
-
+                  "between", "into", "through", "during", "before", "after", "above", "below", "to", "from", "up", "down", "in", "out", "on", "off", "over", "under", "again", "further", "then", "once", "here", "there", "when", "where", "why", "how", "all", "any", "both", "each", "few", "more", "most", "other", "some", "such", "no", "nor", "not", "only", "own", "same", "so", "than", "too", "very", "s", "t", "can", "will", "just", "don", "should", "now", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "==", "+", "=", "-","1","2","3","4","5","6","7","8","9","0"]
+unwanted_punctions=["(",")","*"]
 
 # Taking Inputs
 def input_grabber():
     links = []
     i = 0
     while i < 2:
-        link = str(input("Enter Book " + str((i+1)) + " Link: "))
+        givenbook = str(input("Enter Book " + str((i+1)) + " Name: ")) 
+        givenbook=givenbook.replace(" ", "_")
+        givenbook=givenbook.replace("'","%27" ) 
+        link=("https://en.wikibooks.org/wiki/"+(givenbook)+"/Print_version")
         links.append(dict({"Book " + str(i+1) + ".txt": link}))
         i += 1
     return links
@@ -59,9 +62,35 @@ def stripping(bookName):
     stripped_book = open(stripped_book_name, "a")
     stripped_book.truncate(0)
     text = book.read()
+    #for piece in unwanted_punctions:
+       # if (piece in text):
+    text=text.replace("#"," ")
+    text=text.replace("("," ")
+    text=text.replace(")"," ")
+    text=text.replace("/"," ")
+    text=text.replace('"'," ")
+    text=text.replace(","," ")
+    text=text.replace(":"," ")
+    text=text.replace("1"," ")
+    text=text.replace("2"," ")
+    text=text.replace("3"," ")
+    text=text.replace("4"," ")
+    text=text.replace("5"," ")
+    text=text.replace("6"," ")
+    text=text.replace("7"," ")
+    text=text.replace("8"," ")
+    text=text.replace("0"," ")
+    text=text.replace("9"," ")
+    text=text.replace("."," ")
+    text=text.replace("["," ")
+    text=text.replace("]"," ")
+    text=text.replace("*"," ")
+    text=text.replace("'"," ")
+    
+
     stripped_text = " ".join(text.split())
-    stripped_text = stripped_text.translate(
-        str.maketrans('', '', string.punctuation))
+    # stripped_text = stripped_text.translate(
+    #     str.maketrans("","" , string.punctuation))
     stripped_book.write(stripped_text.casefold())
     stripped_book.close()
     book.close()
