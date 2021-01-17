@@ -17,7 +17,10 @@ def input_grabber():
     links = []
     i = 0
     while i < 2:
-        link = str(input("Enter Book " + str((i+1)) + " Link: "))
+        givenbook = str(input("Enter Book " + str((i+1)) + " Name: ")) 
+        givenbook=givenbook.replace(" ", "_")
+        givenbook=givenbook.replace("'","%27" ) 
+        link=("https://en.wikibooks.org/wiki/"+(givenbook)+"/Print_version")
         links.append(dict({"Book " + str(i+1) + ".txt": link}))
         i += 1
     return links
@@ -59,9 +62,40 @@ def stripping(bookName):
     stripped_book = open(stripped_book_name, "a")
     stripped_book.truncate(0)
     text = book.read()
+    text=text.replace("#"," ")
+    text=text.replace("("," ")
+    text=text.replace(")"," ")
+    text=text.replace("/"," ")
+    text=text.replace('"'," ")
+    text=text.replace(","," ")
+    text=text.replace(":"," ")
+    text=text.replace("1"," ")
+    text=text.replace("2"," ")
+    text=text.replace("3"," ")
+    text=text.replace("4"," ")
+    text=text.replace("5"," ")
+    text=text.replace("6"," ")
+    text=text.replace("7"," ")
+    text=text.replace("8"," ")
+    text=text.replace("0"," ")
+    text=text.replace("9"," ")
+    text=text.replace("."," ")
+    text=text.replace("["," ")
+    text=text.replace("]"," ")
+    text=text.replace("*"," ")
+    text=text.replace("'"," ")
+    text=text.replace("_"," ")
+    text=text.replace("←"," ")
+    text=text.replace("<"," ")
+    text=text.replace(">"," ")
+    text=text.replace("-"," ")
+    text=text.replace("="," ")
+    
+
+
     stripped_text = " ".join(text.split())
-    stripped_text = stripped_text.translate(
-        str.maketrans(' ', ' ', string.punctuation))
+    # stripped_text = stripped_text.translate(
+    #     str.maketrans(' ', ' ', string.punctuation))
     stripped_book.write(stripped_text.casefold())
     stripped_book.close()
     book.close()
