@@ -9,7 +9,7 @@ from collections import Counter
 
 # Unwanted Word Lists
 unwanted_words = [">>>", "i", "me", "my", "myself", "we", "our", "ours", "ourselves", "you", "your", "yours", "yourself", "yourselves", "he", "him", "his", "himself", "she", "her", "hers", "herself", "it", "its", "itself", "they", "them", "their", "theirs", "themselves", "what", "which", "who", "whom", "this", "that", "these", "those", "am", "is", "are", "was", "were", "be", "been", "being", "have", "has", "had", "having", "do", "does", "did", "doing", "a", "an", "the", "and", "but", "if", "or", "because", "as", "until", "while", "of", "at", "by", "for", "with", "about", "against",
-                  "between", "into", "through", "during", "before", "after", "above", "below", "to", "from", "up", "down", "in", "out", "on", "off", "over", "under", "again", "further", "then", "once", "here", "there", "when", "where", "why", "how", "all", "any", "both", "each", "few", "more", "most", "other", "some", "such", "no", "nor", "not", "only", "own", "same", "so", "than", "too", "very", "s", "t", "can", "will", "just", "don", "should", "now", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "==", "+", "=", "-","1","2","3","4","5","6","7","8","9","10","0"]
+                  "between", "into", "through", "during", "before", "after", "above", "below", "to", "from", "up", "down", "in", "out", "on", "off", "over", "under", "again", "further", "then", "once", "here", "there", "when", "where", "why", "how", "all", "any", "both", "each", "few", "more", "most", "other", "some", "such", "no", "nor", "not", "only", "own", "same", "so", "than", "too", "very", "s", "t", "can", "will", "just", "don", "should", "now", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "==", "+", "=", "-", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "0"]
 
 
 # Taking Inputs
@@ -62,41 +62,14 @@ def stripping(bookName):
     stripped_book = open(stripped_book_name, "a")
     stripped_book.truncate(0)
     text = book.read()
-    text=text.replace("#"," ")
-    text=text.replace("("," ")
-    text=text.replace(")"," ")
-    text=text.replace("/"," ")
-    text=text.replace('"'," ")
-    text=text.replace(","," ")
-    text=text.replace(":"," ")
-    text=text.replace("1"," ")
-    text=text.replace("2"," ")
-    text=text.replace("3"," ")
-    text=text.replace("4"," ")
-    text=text.replace("5"," ")
-    text=text.replace("6"," ")
-    text=text.replace("7"," ")
-    text=text.replace("8"," ")
-    text=text.replace("0"," ")
-    text=text.replace("9"," ")
-    text=text.replace("."," ")
-    text=text.replace("["," ")
-    text=text.replace("]"," ")
-    text=text.replace("*"," ")
-    text=text.replace("'"," ")
-    text=text.replace("_"," ")
-    text=text.replace("←"," ")
-    text=text.replace("<"," ")
-    text=text.replace(">"," ")
-    text=text.replace("-"," ")
-    text=text.replace("="," ")
-    
-
 
     stripped_text = " ".join(text.split())
-    # stripped_text = stripped_text.translate(
-    #     str.maketrans(' ', ' ', string.punctuation))
+    # removing punctiation
+    for punc in string.punctuation:
+        stripped_text = stripped_text.replace(punc, " ")
+
     stripped_book.write(stripped_text.casefold())
+
     stripped_book.close()
     book.close()
     print(stripped_book_name)
@@ -164,7 +137,6 @@ def common_elements(sorted_dictionaries):
     dict_1 = sorted_dictionaries[0]
     dict_2 = sorted_dictionaries[1]
 
-
     intersects = []
     # intersects
     for item in dict_1.keys():
@@ -180,10 +152,12 @@ def common_elements(sorted_dictionaries):
     # Summing occurence elements
     # print(dict_1)
     # print(dict_2)
-    summed_elements = {k: dict_1_copy.get(k, 0) + dict_2_copy.get(k, 0) for k in set(dict_1_copy) & set(dict_2_copy)}
-    
+    summed_elements = {k: dict_1_copy.get(
+        k, 0) + dict_2_copy.get(k, 0) for k in set(dict_1_copy) & set(dict_2_copy)}
+
     # sorting summed elements
-    sorted_keys = sorted(summed_elements, key=summed_elements.get, reverse=True)
+    sorted_keys = sorted(
+        summed_elements, key=summed_elements.get, reverse=True)
     for w in sorted_keys:
         sorted_dict_for_sum[w] = summed_elements[w]
     sorted_dict_items = sorted_dict_for_sum.items()
