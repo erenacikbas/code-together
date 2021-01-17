@@ -60,7 +60,8 @@ def stripping(bookName):
     stripped_book.truncate(0)
     text = book.read()
     stripped_text = " ".join(text.split())
-    stripped_text = stripped_text.translate(str.maketrans('', '', string.punctuation))
+    stripped_text = stripped_text.translate(
+        str.maketrans('', '', string.punctuation))
     stripped_book.write(stripped_text.casefold())
     stripped_book.close()
     book.close()
@@ -123,8 +124,10 @@ def word_counting(bookName, stripped_book):
 
 
 def common_elements(sorted_dictionaries):
-    dict_1 = sorted_dictionaries[0]
-    dict_2 = sorted_dictionaries[1]
+    sorted_dict_for_sum = {}
+    dict_1 = sorted_dictionaries[0].copy()
+    dict_2 = sorted_dictionaries[1].copy()
+
 
     intersects = []
     # intersects
@@ -137,6 +140,23 @@ def common_elements(sorted_dictionaries):
         for intersect in intersects:
             if(intersect in dictionary):
                 del dictionary[intersect]
+
+    # Summing occurence elements
+    # print(dict_1)
+    # print(dict_2)
+    x = {'both1': 1, 'both2': 2, 'only_x': 100}
+    y = {'both1': 10, 'both2': 20, 'only_y': 200}
+
+    summed_elements = {k: dict_1.get(k, 0) + dict_2.get(k, 0) for k in set(dict_1) & set(dict_2)}
+    
+    # sorting summed elements
+    sorted_keys = sorted(summed_elements, key=summed_elements.get, reverse=True)
+    for w in sorted_keys:
+        sorted_dict_for_sum[w] = summed_elements[w]
+    sorted_dict_items = sorted_dict_for_sum.items()
+    first_20 = list(sorted_dict_items)[:20]
+    print(first_20)
+
     print("---------------------------------")
     print("Common Words")
     print("dict_1 : " + str(list(dict_1.items())[:20]) + "\n\n")
